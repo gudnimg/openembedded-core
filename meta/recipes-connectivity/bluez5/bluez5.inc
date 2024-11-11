@@ -15,6 +15,7 @@ RCONFLICTS:${PN} = "bluez4"
 
 PACKAGECONFIG ??= "obex-profiles \
     readline \
+    library \
     ${@bb.utils.filter('DISTRO_FEATURES', 'systemd', d)} \
     a2dp-profiles \
     avrcp-profiles \
@@ -33,6 +34,9 @@ PACKAGECONFIG ??= "obex-profiles \
     deprecated \
     udev \
 "
+
+PACKAGECONFIG:class-native = "library"
+
 PACKAGECONFIG[obex-profiles] = "--enable-obex,--disable-obex,libical"
 PACKAGECONFIG[readline] = "--enable-client,--disable-client,readline,"
 PACKAGECONFIG[testing] = "--enable-testing,--disable-testing"
@@ -40,6 +44,7 @@ PACKAGECONFIG[midi] = "--enable-midi,--disable-midi,alsa-lib"
 PACKAGECONFIG[systemd] = "--enable-systemd,--disable-systemd"
 PACKAGECONFIG[cups] = "--enable-cups,--disable-cups,,cups"
 PACKAGECONFIG[nfc] = "--enable-nfc,--disable-nfc"
+PACKAGECONFIG[library] = "--enable-library,--disable-library"
 PACKAGECONFIG[sap-profiles] = "--enable-sap,--disable-sap"
 PACKAGECONFIG[a2dp-profiles] = "--enable-a2dp,--disable-a2dp"
 PACKAGECONFIG[avrcp-profiles] = "--enable-avrcp,--disable-avrcp"
@@ -80,7 +85,6 @@ inherit autotools pkgconfig systemd update-rc.d ptest gobject-introspection-data
 EXTRA_OECONF = "\
   --enable-test \
   --enable-datafiles \
-  --enable-library \
   --enable-pie  \
   --without-zsh-completion-dir \
 "
@@ -166,3 +170,5 @@ do_install_ptest() {
 }
 
 RDEPENDS:${PN}-ptest:append:libc-glibc = " glibc-gconv-utf-16"
+
+BBCLASSEXTEND = "native"
