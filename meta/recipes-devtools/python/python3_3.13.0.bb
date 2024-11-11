@@ -71,6 +71,9 @@ DEPENDS = "bzip2-replacement-native expat libffi bzip2 openssl sqlite3 zlib virt
 DEPENDS:append:class-target = " python3-native"
 DEPENDS:append:class-nativesdk = " python3-native"
 
+# Enable support for AF_BLUETOOTH socket family
+DEPENDS:append:class-target = " ${@bb.utils.contains('DISTRO_FEATURES', 'bluetooth', 'bluez5-native', '', d)}"
+
 EXTRA_OECONF = " --without-ensurepip --enable-shared --with-platlibdir=${baselib} --with-system-expat"
 EXTRA_OECONF:append:class-native = " --bindir=${bindir}/${PN}"
 EXTRA_OECONF:append:class-target = " --with-build-python=nativepython3"
