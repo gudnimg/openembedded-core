@@ -8,7 +8,7 @@ inherit autotools pkgconfig binconfig-disabled ptest
 do_fetch[noexec] = "1"
 do_unpack[noexec] = "1"
 
-S = "${WORKDIR}/libxml2-${PV}"
+#S = "${WORKDIR}/libxml2-${PV}"
 
 inherit_defer ${@bb.utils.contains('PACKAGECONFIG', 'python', 'python3targetconfig', '', d)}
 

@@ -9,6 +9,8 @@ LIC_FILES_CHKSUM = "file://Copyright;md5=f437ed9058e8e5135e47c01e973376ba \
                     file://list.c;beginline=4;endline=13;md5=b9c25b021ccaf287e50060602d20f3a7 \
 "
 
+BPN = "libxml2"
+
 GNOMEBASEBUILDCLASS = "autotools"
 inherit gnomebase
 
