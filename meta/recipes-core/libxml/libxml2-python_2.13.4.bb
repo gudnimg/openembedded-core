@@ -8,7 +8,7 @@ DEPENDS += "libxml2"
 
 PEP517_SOURCE_PATH = "${S}/python"
 
-#EXTRA_OECONF += "--with-python"
+RDEPENDS:${PN}:append = " libxml2"
 
 RDEPENDS:${PN}-ptest += "bash make locale-base-en-us libgcc python3-core python3-logging python3-shell python3-stringold python3-threading python3-unittest"
 
