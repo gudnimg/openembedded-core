@@ -1,5 +1,7 @@
 require libxml2.inc
 
+FILESEXTRAPATHS:prepend := "${THISDIR}/libxml2:"
+
 inherit autotools pkgconfig binconfig-disabled ptest
 
 inherit_defer ${@bb.utils.contains('PACKAGECONFIG', 'python', 'python3targetconfig', '', d)}
