@@ -6,7 +6,7 @@ inherit autotools pkgconfig binconfig-disabled ptest
 
 DEPENDS += "libxml2"
 
-inherit_defer ${@bb.utils.contains('PACKAGECONFIG', 'python', 'python3targetconfig', '', d)}
+inherit python3targetconfig
 
 EXTRA_OECONF += "--with-python"
 
