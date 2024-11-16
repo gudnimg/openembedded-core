@@ -9,11 +9,14 @@ inherit ptest python3targetconfig
 DEPENDS += "libxml2"
 
 S = "${WORKDIR}/libxml2-${PV}"
+
 #PEP517_SOURCE_PATH = "${S}/python"
 
-do_compile() {
-    oe_runmake -C "${S}/python all"
-}
+EXTRA_OEMAKE = "-C ${S}/python"
+
+#do_compile() {
+#    oe_runmake -C "${S}/python"
+#}
 
 RDEPENDS:${PN}:append = " libxml2"
 
