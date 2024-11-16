@@ -2,7 +2,7 @@ require libxml2.inc
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/libxml2:"
 
-SRC_URI += "${GNOME_MIRROR}/${GNOMEBN}/${@gnome_verdir("${PV}")}/${GNOMEBN}-${PV}.tar.${GNOME_COMPRESS_TYPE};name=archive"
+SRC_URI += "${GNOME_MIRROR}/${GNOMEBN}/${@oe.utils.trim_version("${PV}", 2)}/${GNOMEBN}-${PV}.tar.${GNOME_COMPRESS_TYPE};name=archive"
 
 inherit ptest python_setuptools_build_meta
 
