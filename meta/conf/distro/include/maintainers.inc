@@ -446,6 +446,7 @@ RECIPE_MAINTAINER:pn-libxml-sax-base-perl = "Tim Orling <tim.orling@konsulko.com
 RECIPE_MAINTAINER:pn-libxml-sax-perl = "Tim Orling <tim.orling@konsulko.com>"
 RECIPE_MAINTAINER:pn-libxml-simple-perl = "Tim Orling <tim.orling@konsulko.com>"
 RECIPE_MAINTAINER:pn-libxml2 = "Hongxu Jia <hongxu.jia@windriver.com>"
+RECIPE_MAINTAINER:pn-libxml2-python = "Unassigned <unassigned@yoctoproject.org>"
 RECIPE_MAINTAINER:pn-libxmlb = "Markus Volk <f_l_k@t-online.de>"
 RECIPE_MAINTAINER:pn-libxmu = "Unassigned <unassigned@yoctoproject.org>"
 RECIPE_MAINTAINER:pn-libxpm = "Unassigned <unassigned@yoctoproject.org>"
