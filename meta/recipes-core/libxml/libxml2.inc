@@ -10,6 +10,7 @@ LIC_FILES_CHKSUM = "file://Copyright;md5=f437ed9058e8e5135e47c01e973376ba \
 "
 
 GNOMEBN = "libxml2"
+GNOMEBASEBUILDCLASS = "autotools"
 inherit gnomebase
 
 SRC_URI += "file://run-ptest \
