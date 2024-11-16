@@ -6,7 +6,7 @@ inherit autotools pkgconfig binconfig-disabled ptest python_setuptools_build_met
 
 DEPENDS += "libxml2"
 
-S = "${WORKDIR}/${BPN}-${PV}/python"
+PEP517_SOURCE_PATH = "${S}/python"
 
 #EXTRA_OECONF += "--with-python"
 
