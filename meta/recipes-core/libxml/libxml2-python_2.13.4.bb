@@ -5,8 +5,8 @@ FILESEXTRAPATHS:prepend := "${THISDIR}/libxml2:"
 inherit autotools pkgconfig binconfig-disabled ptest
 
 
-do_fetch[noexec] = "1"
-do_unpack[noexec] = "1"
+#do_fetch[noexec] = "1"
+#do_unpack[noexec] = "1"
 
 #S = "${WORKDIR}/libxml2-${PV}"
 
