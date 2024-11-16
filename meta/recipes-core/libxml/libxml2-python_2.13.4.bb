@@ -12,7 +12,7 @@ S = "${WORKDIR}/libxml2-${PV}"
 
 #PEP517_SOURCE_PATH = "${S}/python"
 
-EXTRA_OEMAKE = "-C ${S}/python"
+EXTRA_OEMAKE = "-C ${B}/python"
 
 #do_compile() {
 #    oe_runmake -C "${S}/python"
