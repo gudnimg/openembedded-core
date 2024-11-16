@@ -2,7 +2,7 @@ require libxml2.inc
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/libxml2:"
 
-inherit autotools pkgconfig binconfig-disabled ptest python_setuptools_build_meta
+inherit ptest python_setuptools_build_meta
 
 DEPENDS += "libxml2"
 
