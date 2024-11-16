@@ -6,6 +6,7 @@ inherit ptest python_setuptools_build_meta
 
 DEPENDS += "libxml2"
 
+S = "${WORKDIR}/libxml2-${PV}"
 PEP517_SOURCE_PATH = "${S}/python"
 
 RDEPENDS:${PN}:append = " libxml2"
