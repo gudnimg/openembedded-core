@@ -1,5 +1,8 @@
 require libxml2.inc
 
+SRC_URI += "http://www.w3.org/XML/Test/xmlts20130923.tar;subdir=${BP};name=testtar"
+SRC_URI[testtar.sha256sum] = "c6b2d42ee50b8b236e711a97d68e6c4b5c8d83e69a2be4722379f08702ea7273"
+
 DEPENDS = "zlib virtual/libiconv"
 
 GNOMEBASEBUILDCLASS = "autotools"
