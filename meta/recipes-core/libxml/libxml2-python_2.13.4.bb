@@ -2,7 +2,7 @@ require libxml2.inc
 
 FILESEXTRAPATHS:prepend := "${THISDIR}/libxml2:"
 
-inherit autotools pkgconfig binconfig-disabled ptest setuptools-base
+inherit autotools pkgconfig binconfig-disabled ptest setuptools3-base
 
 DEPENDS += "libxml2"
 
