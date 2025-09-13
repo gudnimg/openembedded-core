@@ -9,7 +9,7 @@ inherit toolchain-scripts-base siteinfo kernel-arch meson-routines
 # We want to be able to change the value of MULTIMACH_TARGET_SYS, because it
 # doesn't always match our expectations... but we default to the stock value
 REAL_MULTIMACH_TARGET_SYS ?= "${MULTIMACH_TARGET_SYS}"
-TARGET_CC_ARCH:append:libc-musl = " -mmusl"
+TARGET_CC_ARCH:append:toolchain-gcc:libc-musl = " -mmusl"
 
 # default debug prefix map isn't valid in the SDK
 DEBUG_PREFIX_MAP = ""
@@ -238,11 +238,11 @@ toolchain_create_sdk_siteconfig () {
 python __anonymous () {
     import oe.classextend
     deps = ""
+    prefixes = (d.getVar("MULTILIB_VARIANTS") or "").split()
     for dep in (d.getVar('TOOLCHAIN_NEED_CONFIGSITE_CACHE') or "").split():
         deps += " %s:do_populate_sysroot" % dep
         for variant in (d.getVar('MULTILIB_VARIANTS') or "").split():
-            clsextend = oe.classextend.ClassExtender(variant, d)
-            newdep = clsextend.extend_name(dep)
+            newdep = oe.classextend.add_suffix(dep, variant, prefixes)
             deps += " %s:do_populate_sysroot" % newdep
     d.appendVarFlag('do_configure', 'depends', deps)
 }

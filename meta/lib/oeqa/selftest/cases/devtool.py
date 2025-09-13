@@ -406,7 +406,7 @@ class DevtoolAddTests(DevtoolBase):
         test_file_dir_full = os.path.join(test_file_package_root, test_file_dir)
         bb.utils.mkdirhier(test_file_dir_full)
         with open(os.path.join(test_file_dir_full, test_file_name), "w") as f:
-           f.write(test_file_content)
+            f.write(test_file_content)
         bin_package_path = os.path.join(tempdir, "%s.tar.gz" % pn)
         runCmd("tar czf %s -C %s ." % (bin_package_path, test_file_package_root))
 
@@ -509,7 +509,13 @@ class DevtoolAddTests(DevtoolBase):
         # normally cover, which triggers the installed-vs-shipped QA test we have
         # within do_package
         recipefile = '%s/recipes/libftdi/libftdi_%s.bb' % (self.workspacedir, version)
-        result = runCmd('recipetool setvar %s EXTRA_OECMAKE -- \'-DPYTHON_BINDINGS=OFF -DLIBFTDI_CMAKE_CONFIG_DIR=${datadir}/cmake/Modules\'' % recipefile)
+        # There is no upstream release that supports building with CMake 4+ yet, so we explicitly
+        # set the policy minimum version via EXTRA_OECMAKE. That's easier than applying backported
+        # patches.
+        result = runCmd(
+            "recipetool setvar %s EXTRA_OECMAKE -- '-DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DPYTHON_BINDINGS=OFF -DLIBFTDI_CMAKE_CONFIG_DIR=${datadir}/cmake/Modules'"
+            % recipefile
+        )
         with open(recipefile, 'a') as f:
             f.write('\nFILES:${PN}-dev += "${datadir}/cmake/Modules"\n')
             # We don't have the ability to pick up this dependency automatically yet...
@@ -1952,13 +1958,11 @@ class DevtoolUpgradeTests(DevtoolBase):
         self.assertNotIn(recipe, result.output)
         self.assertNotExists(os.path.join(self.workspacedir, 'recipes', recipe), 'Recipe directory should not exist after resetting')
 
-    def test_devtool_upgrade_git(self):
+    def _test_devtool_upgrade_git_by_recipe(self, recipe, commit):
         # Check preconditions
         self.assertTrue(not os.path.exists(self.workspacedir), 'This test cannot be run with a workspace directory under the build directory')
         self.track_for_cleanup(self.workspacedir)
         self.add_command_to_tearDown('bitbake-layers remove-layer */workspace')
-        recipe = 'devtool-upgrade-test2'
-        commit = '6cc6077a36fe2648a5f993fe7c16c9632f946517'
         oldrecipefile = get_bb_var('FILE', recipe)
         tempdir = tempfile.mkdtemp(prefix='devtoolqa')
         self.track_for_cleanup(tempdir)
@@ -1987,6 +1991,12 @@ class DevtoolUpgradeTests(DevtoolBase):
         result = runCmd('devtool status')
         self.assertNotIn(recipe, result.output)
         self.assertNotExists(os.path.join(self.workspacedir, 'recipes', recipe), 'Recipe directory should not exist after resetting')
+
+    def test_devtool_upgrade_git(self):
+        self._test_devtool_upgrade_git_by_recipe('devtool-upgrade-test2', '6cc6077a36fe2648a5f993fe7c16c9632f946517')
+
+    def test_devtool_upgrade_gitsm(self):
+        self._test_devtool_upgrade_git_by_recipe('devtool-upgrade-test5', 'a2885dd7d25380d23627e7544b7bbb55014b16ee')
 
     def test_devtool_upgrade_drop_md5sum(self):
         # Check preconditions

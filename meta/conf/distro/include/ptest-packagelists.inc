@@ -7,7 +7,6 @@ PTESTS_FAST = "\
     acl \
     apr-util \
     attr \
-    babeltrace \
     babeltrace2 \
     bc \
     bluez5 \
@@ -25,6 +24,7 @@ PTESTS_FAST = "\
     gdk-pixbuf \
     glib-networking \
     gzip \
+    icu \
     json-c \
     json-glib \
     libconvert-asn1-perl \
@@ -32,6 +32,7 @@ PTESTS_FAST = "\
     libgpg-error\
     libnl \
     libpcre \
+    librsvg \
     libssh2 \
     libtest-fatal-perl \
     libtest-needs-perl \
@@ -99,6 +100,8 @@ PTESTS_SLOW = "\
     coreutils \
     curl \
     dbus \
+    dosfstools \
+    dpkg \
     e2fsprogs \
     elfutils \
     gettext \

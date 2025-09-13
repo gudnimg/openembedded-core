@@ -22,6 +22,7 @@ SRC_URI = "${KERNELORG_MIRROR}/linux/utils/nfs-utils/${PV}/nfs-utils-${PV}.tar.x
            file://nfsserver \
            file://nfscommon \
            file://0001-locktest-Makefile.am-Do-not-use-build-flags.patch \
+           file://0002-Fix-build-with-glibc-2.42.patch \
            file://0004-Use-nogroup-for-nobody-group.patch \
            file://0005-find-OE-provided-Kerberos.patch \
            "
@@ -120,8 +121,8 @@ FILES:${PN}-staticdev += "${libdir}/libnfsidmap/*.a"
 FILES:${PN} += "${systemd_unitdir} ${libdir}/libnfsidmap/ ${nonarch_libdir}/modprobe.d"
 
 do_configure:prepend() {
-	sed -i -e 's,sbindir = /sbin,sbindir = ${base_sbindir},g' \
-		-e 's,udev_rulesdir = /usr/lib/udev/rules.d/,udev_rulesdir = ${nonarch_base_libdir}/udev/rules.d/,g' \
+	sed -i -e 's,sbindir = .*,sbindir = ${base_sbindir},g' \
+		-e 's,udev_rulesdir = .*,udev_rulesdir = ${nonarch_base_libdir}/udev/rules.d/,g' \
 		${S}/utils/mount/Makefile.am ${S}/utils/nfsdcltrack/Makefile.am \
 		${S}/systemd/Makefile.am ${S}/tools/nfsrahead/Makefile.am
 }

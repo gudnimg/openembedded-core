@@ -12,7 +12,6 @@ LIC_FILES_CHKSUM = "file://lldb/LICENSE.TXT;md5=2e0d44968471fcde980034dbb826bea9
 
 inherit cmake pkgconfig python3native python3targetconfig
 
-# This actually just depends on LLVM but right now llvm and clang are built together
 DEPENDS = "llvm-tblgen-native clang"
 
 OECMAKE_SOURCEPATH = "${S}/lldb"
@@ -25,12 +24,13 @@ EXTRA_OECMAKE = "-DLLDB_INCLUDE_TESTS=OFF \
                  -DLLVM_DIR=${STAGING_LIBDIR}/cmake/llvm/ \
                  -DLLVM_TABLEGEN=${STAGING_BINDIR_NATIVE}/llvm-tblgen \
                  -DLLDB_TABLEGEN_EXE=${STAGING_BINDIR_NATIVE}/lldb-tblgen \
+                 -DLLDB_NO_INSTALL_DEFAULT_RPATH=ON \
 "
 
 PACKAGECONFIG ??= "libedit libxml2 lzma"
 PACKAGECONFIG[libedit] = "-DLLDB_ENABLE_LIBEDIT=ON,-DLLDB_ENABLE_LIBEDIT=OFF,libedit"
 PACKAGECONFIG[libxml2] = "-DLLDB_ENABLE_LIBXML2=ON,-DLLDB_ENABLE_LIBXML2=OFF,libxml2"
-PACKAGECONFIG[lzma] = "-DLLDB_ENABLE_LLDB_ENABLE_LZMA=ON,-DLLDB_ENABLE_LLDB_ENABLE_LZMA=OFF,xz"
+PACKAGECONFIG[lzma] = "-DLLDB_ENABLE_LZMA=ON,-DLLDB_ENABLE_LZMA=OFF,xz"
 PACKAGECONFIG[python] = "-DLLDB_ENABLE_PYTHON=ON,-DLLDB_ENABLE_PYTHON=OFF,swig-native"
 
 do_install:append() {
