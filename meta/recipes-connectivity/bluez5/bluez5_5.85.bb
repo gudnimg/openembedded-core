@@ -54,7 +54,6 @@ NOINST_TOOLS_BT ?= " \
     tools/btproxy \
     tools/btiotest \
     tools/bneptest \
-    tools/mcaptest \
     tools/cltest \
     tools/oobtest \
     tools/advtest \
